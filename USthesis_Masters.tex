@@ -1,0 +1,178 @@
+\documentclass[12pt,oneside,openany,a4paper,%..... Layout
+               afrikaans, english,%.............. Global language selection
+               ]{memoir}
+
+ \usepackage[masters-t,%.......................... Master thesis
+             goldenblock,%........................ A5 type block (or a5block or wide)
+            ]{usthesis}%.......................... US thesis style with memoir
+
+%
+% PLEASE read the USthesis documentation for the class options
+% and how to set line and paragraph spacing
+%
+\OnehalfSpacing
+
+%==== Language setup ================================================
+ \usepackage[latin1]{inputenc}%................... Recognizes ê, ë, etc
+ \usepackage{babel}%.............................. Language setup
+
+%==== Math setup ====================================================
+ \usepackage{amsmath}%............................ Advanced math (before fonts)
+ %\usepackage{amssymb}%............................ AMS Symbol fonts
+
+%==== Font setup (default is Computer Modern) =======================
+ \usepackage[T1]{fontenc}%........................ Type 1 fonts
+ %\usepackage{fourier}
+ \usepackage{textcomp}%........................... Additional text character
+ \usepackage{bm}%................................. Bold math symbols (after fonts)
+
+%==== Ref's, Bib's and Nomencl ======================================
+% \usepackage{usnomencl}%......... List of symbols (in usthesis pack)
+% \usepackage{usbib}%............. Bibliography    (in usthesis pack)
+%    \bibliographystyle{usmeg-a}
+%    \renewcommand\bibfont{\small}
+%
+%    %% For usmeg-a, the bib is a list of references. If you
+%    %% are using usmeg-n comment out the following lines
+%    \addto{\captionsafrikaans}{\renewcommand{\bibname}{Lys van Verwysings}}
+%    \addto{\captionsenglish}{\renewcommand{\bibname}{List of References}}
+    
+%=== Biber Commands (USER DEFINED)===================================
+
+\usepackage{csquotes}% Recommended
+
+\usepackage[backend=biber,style=authoryear,uniquename=false]{biblatex}
+
+\addbibresource[]{bibliography/USbib-sample.bib}%...this must point to your bib-file (Syntax for version >= 1.2 of biber engine).
+    
+%==== Graphics and Color ============================================
+\usepackage{graphicx}%........................... Graphicx loaded in usthesis
+\usepackage{color}%.............................. Color setup
+\usepackage{eso-pic}%............................ Shipout commands for watermark
+    \newcommand*{\WaterMark}[2][0.15\paperwidth]{%
+        \AddToShipoutPicture*{\AtTextCenter{%
+                \parbox[c]{0pt}{\makebox[0pt][c]{%
+                    \includegraphics[width=#1]{#2}}}}}}
+
+%==== Local Defs ====================================================
+\makeatletter
+
+\usepackage{url}
+\usepackage{hyperref}
+
+%
+% Please insert user defined commands here
+% and NOT in the document itself!
+% You might want to do things that require additional packages and then you list the packages here.
+
+\makeatother
+
+%=== Tables =====================================================
+\usepackage{booktabs}
+%\usepackage{pdflscape}
+%\usepackage{longtable}
+%\usepackage{tabularx}
+%\usepackage{ltablex} 
+%\usepackage{lipsum}
+
+\usepackage{float} %...this makes sure that tables don't get repositioned when you use the appropriate command in table.
+\restylefloat{table}
+
+%==== TITLE PAGE ====================================================
+\title{\bfseries
+       \AorE{%-- Afrikaans ------------------------------------------
+             Jou Ongelooflike Tesis Titel:\\ En Sub-Titel\\[1ex]
+             \normalfont\small\itshape
+             (``Your Incredible Thesis Title:\\ And Sub-Title'')
+            }{%-- English -------------------------------------------
+             Your Incredible Thesis Title:\\ And Sub-Title
+            }}
+
+\author{H.\ Wiehahn}{Helena Wiehahn}
+
+\degree{\AorE{MPhil (IKB)}{MPhil (IKM)}}
+       {\AorE{Magister in die Wysbegeerte (Informasie en Kennisbestuur)}
+             {Master of Philosophy (Information and Knowledge Management)}}
+
+\address{\AorE{%-- Afrikaans ----------------------------------------
+        Departement Inligtingwetenskap,\\
+        Universiteit van Stellenbosch,\\
+        Privaatsak X1, Matieland 7602, Suid Afrika.%
+             }{%-- English ------------------------------------------
+        Department of Information Science,\\
+        University of Stellenbosch,\\
+        Private Bag X1, Matieland 7602, South Africa.
+             }}
+
+\faculty{\AorE{Fakulteit Lettere en Sosiale Wetenskappe}%
+              {Faculty of Arts and Social Sciences}}
+
+\supervisor{Dr.\ Paul Louis\ Iske}
+%\cosupervisor{}
+
+\setdate{09}{2020}
+
+%\Sponsorship Disclaimer
+%\SetSponsor{The financial assistance of the National Research Foundation (NRF) towards this research is hereby acknowledged. Opinions expressed and conclusions arrived at, are those of the author and are not necessarily to be attributed to the NRF.}
+
+
+%====================================================================
+%     MAIN DOCUMENT
+%====================================================================
+\maxsecnumdepth{subsubsection}
+\maxtocdepth{section}
+
+\begin{document}
+
+%==== Front matter ==================================================
+ \frontmatter
+ \WaterMark{UScrest-WM}
+ \TitlePage
+
+ \DeclarationDate{2020/09/01}
+ \DeclarationPage
+
+ \include{frontpage/Chap-Front}
+
+ \tableofcontents
+ \clearpage
+
+ \setcounter{lofdepth}{2}
+ \listoffigures
+ \clearpage
+
+ \listoftables
+ \clearpage
+
+% \include{frontmatter/Nomencl}
+
+%==== Main document =================================================
+\mainmatter
+   \setsecnumdepth{subsubsection}
+%   \numberwithin{equation}{section}
+%   \numberwithin{figure}{chapter}
+%   \numberwithin{table}{chapter}
+
+\include{chapters/Chap-1}
+%\include{contents/Chap-2}
+%\include{contents/Chap-3}
+%\include{contents/Chap-4}
+%\include{contents/Chap-5}
+%
+%%%...uncomment chapters as they get finished so that they are compiled.
+
+%==== Appendices ====================================================
+\appendix
+\appendixpage\relax
+
+\include{appendices/App-1}
+%\include{contents/App-2}
+%\include{contents/App-3}
+
+%==== Bibliography acro's & Index ===================================
+\bibliography
+
+%\bibliography{backmatter/USbib-sample} %ORIGINAL PACKAGE OPTION
+\printbibliography[] %BIBER OPTION
+
+\end{document}
